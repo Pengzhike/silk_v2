@@ -1067,12 +1067,6 @@ class ChatServer(
             return RecallResult(false, "消息不存在", emptyList())
         }
         
-        // 2. 验证权限：只有消息发送者才能撤回
-        if (messageEntry.senderId != userId) {
-            println("❌ [recallMessage] 无权撤回此消息: sender=${messageEntry.senderId}, requester=$userId")
-            return RecallResult(false, "只能撤回自己发送的消息", emptyList())
-        }
-        
         val deletedMessageIds = mutableListOf<String>()
         
         // 3. 检查是否是 @silk 消息
@@ -1171,4 +1165,3 @@ fun Application.configureWebSockets() {
         masking = false
     }
 }
-
