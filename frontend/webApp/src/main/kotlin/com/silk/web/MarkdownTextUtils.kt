@@ -35,6 +35,8 @@ fun normalizeMathMarkdownBlocks(markdown: String): String {
             if (closingIndex == -1) continue
 
             val innerContent = markdown.substring(contentStart, closingIndex)
+                // markdown-it 会把数学环境中的 `\\` 吃成 `\`，这里先补一层转义。
+                .replace("\\\\", "\\\\\\\\")
             output.append(delimiter.open)
             output.append(innerContent)
             output.append(delimiter.close)
