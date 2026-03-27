@@ -1066,6 +1066,11 @@ class ChatServer(
             println("❌ [recallMessage] 消息不存在: $messageId")
             return RecallResult(false, "消息不存在", emptyList())
         }
+
+        if (messageEntry.senderId != userId) {
+            println("❌ [recallMessage] 无权撤回此消息: sender=${messageEntry.senderId}, requester=$userId")
+            return RecallResult(false, "只能撤回自己发送的消息", emptyList())
+        }
         
         val deletedMessageIds = mutableListOf<String>()
         

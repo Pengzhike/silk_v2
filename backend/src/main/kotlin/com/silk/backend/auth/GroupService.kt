@@ -78,7 +78,7 @@ object GroupService {
         // 根据邀请码查找群组
         val group = GroupRepository.findGroupByInvitationCode(request.invitationCode)
         if (group == null) {
-            return GroupResponse(true, "邀请码无效")
+            return GroupResponse(false, "邀请码无效")
         }
         
         // 检查用户是否已在群组中
